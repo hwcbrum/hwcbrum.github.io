@@ -1,0 +1,12 @@
+title: Homebrew Brum
+email: homebrew@paultibbetts.uk
+description: >
+  Join like-minded people each month in Birmingham to exchange ideas,
+  talk shop and get some feedback for that side project you've been working on.
+baseurl: ""
+collections:
+  - events
+url: "https://homebrewbrum.co.uk"
+twitter_username: homebrewbrum
+github_username:  hwcbrum
+markdown: kramdown

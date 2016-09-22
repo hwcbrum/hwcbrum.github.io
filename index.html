@@ -1,68 +1,74 @@
-<!DOCTYPE HTML>
-<html lang="en-GB" prefix="og: http://ogp.me/ns#" class="">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@homebrewbrum">
-<meta name="twitter:title" content="Homebrew Website Club Birmingham">
-<meta name="twitter:description" content="Join like-minded people each month in Birmingham to exchange ideas, talk shop and get some feedback for that side project you've been working on.">
-<meta name="twitter:image" content="http://homebrewbrum.co.uk/twitter-card.png">
+---
+layout: default
+---
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+<header class="u-container u-section">
+    <h1 class="p-name">Homebrew Website Club Birmingham</h1>
+</header>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-	<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
-	<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+<div class="u-container u-section p-description">
+  <p><b>Next meetup:</b>
+    {% for event in site.events limit:1 %}
+      <br>
+      {{ event.date | date: "%A" }}
+      {% assign d = event.date | date: "%-d"  %}
+      {% case d %}
+      {% when '1' or '21' or '31' %}{{ d }}st
+      {% when '2' or '22' %}{{ d }}nd
+      {% when '3' or '23' %}{{ d }}rd
+      {% else %}{{ d }}th
+      {% endcase %}
+      {{ event.date | date: "%B" }}
+      <br>
+      {{ event.venue_info }}
+    {% endfor %}
 
-    <style type="text/css" media="all">
-        *{margin:0;padding:0;box-sizing:border-box}html{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;line-height:1.618;color:#444;background-color:#f9f9f5;-webkit-text-size-adjust:100%;font-size:110%}::-moz-selection{background-color:#0f73ee;color:#f9f9f5}::selection{background-color:#0f73ee;color:#f9f9f5}body{padding:7vw}ol,p,ul{margin-bottom:1.618em}pre{margin-bottom:2.4em}ol,ul{padding-left:1em}ol>*,ul>*{margin-bottom:.5em}*+ol,*+p,*+ul{margin-top:1.3em}blockquote{border-left:3px solid #444;padding-left:1.618em;margin-left:0}blockquote>p{font-family:Georgia,Times,Times New Roman,serif;font-style:italic}b,strong{font-weight:600;color:#111}cite,em,i{font-style:italic}code{padding:.15em .5em;color:#f34059;vertical-align:text-top;border-radius:.15em;background-color:#fff;border:1px solid #f9a0ac}pre code{display:block;padding:1.5em;overflow-x:auto}hr{border:0;border-bottom:2px solid #444;margin-top:2.618em;margin-bottom:2.618em}a{color:#0f73ee;-ms-touch-action:manipulation;touch-action:manipulation;transition:opacity .3s ease}a:hover{opacity:.5}.micro{font-size:.9em}.h1,.h2,.h3,h1,h2,h3{color:#111;margin-bottom:.6em;margin-top:0;line-height:1.1}*+.h1,*+.h2,*+.h3,*+h1,*+h2,*+h3{margin-top:1.618em}.h1,h1{font-size:2.5em;font-weight:900}.h2,h2{font-size:1.5em}input,label{display:block;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif}label{margin-bottom:.4em}input{background-color:#fff;border:2px solid #aaa;border-radius:.25em;padding:.5em 1em;width:100%;font-size:1em}input:focus{border-color:#0f73ee;outline:none}.button{border-radius:.25em;padding:.5em 1em;text-decoration:none;border:1px solid transparent;cursor:pointer;display:inline-block;vertical-align:middle;text-align:center;white-space:nowrap;line-height:1;width:auto;background-color:#0f73ee;color:#fff;font-size:1em}.button:focus,.button:hover{color:#fff;background-color:#0c5cbe}.button::moz-focus-inner{border:0;padding:0;margin-top:-2px;margin-bottom:-2px}.u-container{max-width:33em}.u-container--lg{max-width:45em}.u-section{margin-bottom:8vh}.u-flag{display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between}.u-flag>:first-child{-ms-flex-positive:1;flex-grow:1;margin-right:.6em}.u-flag>:last-child{-ms-flex-negative:2;flex-shrink:2}.u-well{background-color:#fff;border-top:2px solid #444;border-bottom:2px solid #444}.u-well form{margin:8vh 5vw}@media (min-width:35em){ol,ul{padding-left:0}blockquote{margin-left:calc(-1.618em - 3px)}blockquote>p{font-size:1.2em}.h1,h1{font-size:3.25em}}@media (min-width:59em){.h1,h1{font-size:4em}.h2,h2{font-size:1.65em}.u-container{width:90%}}@media (min-width:66em){html{font-size:120%}.h1,h1{font-size:4.25em}.h2,h2{font-size:1.8em}}@media (min-width:85em){html{font-size:130%}}</style>
-    <title>Homebrew Website Club Birmingham</title>
-</head>
+  <p>Join like-minded people each month in Birmingham to exchange ideas, talk shop and get some feedback for that side project you've been working on.</p>
 
-<body class="h-event">
-    <header class="u-container u-section">
-        <h1 class="p-name">Homebrew Website Club Birmingham</h1>
-    </header>
-    <div class="u-container u-section p-description">
-      <p><b>Next meetup:</b>
-      <br>Wednesday 5th October
-      <br><a href="https://www.google.co.uk/maps/place/Talis/@52.485601,-1.9143572,508m/data=!3m2!1e3!4b1!4m5!3m4!1s0x4870bcede11e8827:0x10e6a0efc2b37b1a!8m2!3d52.4855978!4d-1.9121685">Talis</a> (48 Frederick Street, Jewellery Quarter).</b>
-      
-      <p>Join like-minded people each month in Birmingham to exchange ideas, talk shop and get some feedback for that side project you've been working on.</p>
-      <h2>What is Homebrew Website Club?</h2>
-      <p><a href="https://indieweb.org/Homebrew_Website_Club">Homebrew Website Club</a> meetups take place <a href="https://indieweb.org/IRC">online</a> and <a href="https://indieweb.org/Homebrew_Website_Club#Meetings">around the world</a> every other Wednesday. Passionate people gather to work on their own websites and discuss the future of publishing on the web in the same structure as the classic <a href="https://en.wikipedia.org/wiki/Homebrew_Computer_Club">Homebrew Computer Club</a> meetings.</p>
-      <h2>When and where?</h2>
-      <p>Birmingham’s Homebrew Website Club meets monthly on the first Wednesday of each month from <time datetime="2016-10-05 18:30" class="dt-start">6:30pm</time> until <time datetime="2016-10-05 21:00" class="dt-end">9:00pm</time>.</p>
-      <p><b>The next meetup is on Wednesday 5th October at <a href="https://www.google.co.uk/maps/place/Talis/@52.485601,-1.9143572,508m/data=!3m2!1e3!4b1!4m5!3m4!1s0x4870bcede11e8827:0x10e6a0efc2b37b1a!8m2!3d52.4855978!4d-1.9121685">Talis</a> (48 Frederick Street, JQ).</b>
-      <p>Feel free to join us from 6pm for some quiet working time beforehand. We’ll round each meetup off with a quick show and tell to share what you’ve learned and accomplished.</p>
-      <p>There's free wifi and you'll have the opportunity to grab a drink and snack.</p>
-      <h2>How to sign up</h2>
-      <p>There is no need to sign up.</p>
-      <p>Everyone is welcome, just turn up on the evening.</p>
-      <p>We keep a little mailing list to let people know when the next meetup is. Feel free to add your email and we’ll pop you an email or two each month with information.</p>
-    </div>
+  <h2>What is Homebrew Website Club?</h2>
+  <p><a href="https://indieweb.org/Homebrew_Website_Club">Homebrew Website Club</a> meetups take place <a href="https://indieweb.org/IRC">online</a> and <a href="https://indieweb.org/Homebrew_Website_Club#Meetings">around the world</a> every other Wednesday. Passionate people gather to work on their own websites and discuss the future of publishing on the web in the same structure as the classic <a href="https://en.wikipedia.org/wiki/Homebrew_Computer_Club">Homebrew Computer Club</a> meetings.</p>
+  <h2>When and where?</h2>
+  <p>Birmingham’s Homebrew Website Club meets monthly on the first Wednesday of each month from <time datetime="2016-10-05 18:30" class="dt-start">6:30pm</time> until <time datetime="2016-10-05 21:00" class="dt-end">9:00pm</time>.</p>
 
-    <div class="u-well u-container u-container--lg u-section">
-        <form action="https://tinyletter.com/homebrewbrum" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/homebrewbrum', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-            <h2>Interested? Sign up for more details</h2>
-            <label for="tlemail">Enter your email address</label>
-            <div class="u-flag">
-                <input type="text" name="email" id="tlemail" placeholder="Your email address" />
-                <button type="submit" class="button">Subscribe</button>
-            </div>
-            <input type="hidden" value="1" name="embed"/>
-            <p class="micro">Of course, we won't share or spam your email</p>
-        </form>
-    </div>
+  {% for event in site.events limit:1 %}
+    <p><b>The next meetup is on
+      {{ event.date | date: "%A" }}
+      {% assign d = event.date | date: "%-d"  %}
+      {% case d %}
+      {% when '1' or '21' or '31' %}{{ d }}st
+      {% when '2' or '22' %}{{ d }}nd
+      {% when '3' or '23' %}{{ d }}rd
+      {% else %}{{ d }}th
+      {% endcase %}
+      {{ event.date | date: "%B" }}
+      at
+      {{ event.venue_info }}
+    </b></p>
+  {% endfor %}
 
-    <div class="u-container u-section">
-        <p>See you there,</p>
-        <p>- <a href="https://daveredfern.com/">Dave</a>, <a href="https://marcjenkins.co.uk/">Marc</a> &amp; <a href="https://paultibbetts.uk">Paul</a></p>
-    </div>
+  <p>Feel free to join us from 6pm for some quiet working time beforehand. We’ll round each meetup off with a quick show and tell to share what you’ve learned and accomplished.</p>
+  <p>There's free wifi and you'll have the opportunity to grab a drink and snack.</p>
 
-</body>
+  <h2>How to sign up</h2>
+  <p>There is no need to sign up.</p>
+  <p>Everyone is welcome, just turn up on the evening.</p>
+  <p>We keep a little mailing list to let people know when the next meetup is. Feel free to add your email and we’ll pop you an email or two each month with information.</p>
+</div>
 
-</html>
+<div class="u-well u-container u-container--lg u-section">
+    <form action="https://tinyletter.com/homebrewbrum" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/homebrewbrum', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+        <h2>Interested? Sign up for more details</h2>
+        <label for="tlemail">Enter your email address</label>
+        <div class="u-flag">
+            <input type="text" name="email" id="tlemail" placeholder="Your email address" />
+            <button type="submit" class="button">Subscribe</button>
+        </div>
+        <input type="hidden" value="1" name="embed"/>
+        <p class="micro">Of course, we won't share or spam your email</p>
+    </form>
+</div>
+
+<div class="u-container u-section">
+    <p>See you there,</p>
+    <p>- <a href="https://daveredfern.com/">Dave</a>, <a href="https://marcjenkins.co.uk/">Marc</a> &amp; <a href="https://paultibbetts.uk">Paul</a></p>
+</div>
