@@ -11,20 +11,18 @@ layout: default
 
     {% assign events = (site.events | sort: 'date') | reverse %}
     {% for event in events limit:1 %}
-        {% if event.published == true %}
-            <br>
-            {{ event.date | date: "%A" }}
-            {% assign d = event.date | date: "%-d"  %}
-            {% case d %}
-            {% when '1' or '21' or '31' %}{{ d }}st
-            {% when '2' or '22' %}{{ d }}nd
-            {% when '3' or '23' %}{{ d }}rd
-            {% else %}{{ d }}th
-            {% endcase %}
-            {{ event.date | date: "%B" }}
-            <br>
-            {{ event.venue_info }}
-        {% endif %}
+      <br>
+      {{ event.date | date: "%A" }}
+      {% assign d = event.date | date: "%-d"  %}
+      {% case d %}
+      {% when '1' or '21' or '31' %}{{ d }}st
+      {% when '2' or '22' %}{{ d }}nd
+      {% when '3' or '23' %}{{ d }}rd
+      {% else %}{{ d }}th
+      {% endcase %}
+      {{ event.date | date: "%B" }}
+      <br>
+      {{ event.venue_info }}
     {% endfor %}
 
   <p>Join like-minded people each month in Birmingham to work on your own project, exchange ideas and talk shop. </p>
@@ -37,21 +35,19 @@ layout: default
   <p>Birmingham’s Homebrew Website Club meets monthly on the fourth Wednesday of each month from <time datetime="2017-01-25 18:00" class="dt-start">6:00pm</time> until <time datetime="2017-01-25 21:00" class="dt-end">9:00pm</time>.</p>
 
   {% for event in events limit:1 %}
-    {% if event.published == true %}
-        <p><b>The next meetup is on
-        {{ event.date | date: "%A" }}
-        {% assign d = event.date | date: "%-d"  %}
-        {% case d %}
-        {% when '1' or '21' or '31' %}{{ d }}st
-        {% when '2' or '22' %}{{ d }}nd
-        {% when '3' or '23' %}{{ d }}rd
-        {% else %}{{ d }}th
-        {% endcase %}
-        {{ event.date | date: "%B" }}
-        at
-        {{ event.venue_info }}
-        </b></p>
-    {% endif %}
+    <p><b>The next meetup is on
+      {{ event.date | date: "%A" }}
+      {% assign d = event.date | date: "%-d"  %}
+      {% case d %}
+      {% when '1' or '21' or '31' %}{{ d }}st
+      {% when '2' or '22' %}{{ d }}nd
+      {% when '3' or '23' %}{{ d }}rd
+      {% else %}{{ d }}th
+      {% endcase %}
+      {{ event.date | date: "%B" }}
+      at
+      {{ event.venue_info }}
+    </b></p>
   {% endfor %}
 
   <p>This meetup is intentionally informal with no talks. We kick off at 6pm where you’ll get to hack on your website or project. From 7pm we’ll introduce ourselves and share what we’ve been working on. Each meetup has a theme, which we’ll discuss at 7:30pm. And then from 8:00pm, we’ll open up the discussion to whatever anyone wants to talk about.<p>
