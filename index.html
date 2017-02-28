@@ -7,23 +7,18 @@ layout: default
 </header>
 
 <div class="u-container u-section p-description">
-  <p><b>Next meetup:</b>
 
-    {% assign events = (site.events | sort: 'date') | reverse %}
-    {% for event in events limit:1 %}
-      <br>
-      {{ event.date | date: "%A" }}
-      {% assign d = event.date | date: "%-d"  %}
-      {% case d %}
-      {% when '1' or '21' or '31' %}{{ d }}st
-      {% when '2' or '22' %}{{ d }}nd
-      {% when '3' or '23' %}{{ d }}rd
-      {% else %}{{ d }}th
-      {% endcase %}
-      {{ event.date | date: "%B" }}
-      <br>
-      {{ event.venue_info }}
-    {% endfor %}
+    <p>
+        <b>Next meetup:</b>
+        <br>
+        <span class="js-nextMeetupDate">The last Wednesday of the month</span><br>
+        <span class="js-hideIfNextMeetupNotPlanned">
+            <a href="https://www.google.com/maps/place/Cherry+Red's+Cafe+Bar/@52.476822,-1.901692,17z/data=!4m5!3m4!1s0x0:0x58d505a04a9abddd!8m2!3d52.4770684!4d-1.901202?hl=en">
+                Cherry Red's Cafe Bar
+            </a> in The Map Room <br> 88-92 John Bright St, Birmingham
+        </span>
+    </p>
+
 
   <p>Join like-minded people each month in Birmingham to work on your own project, exchange ideas and talk shop. </p>
 
@@ -34,24 +29,26 @@ layout: default
   <h2>When and where?</h2>
   <p>Birmingham’s Homebrew Website Club meets monthly on the last Wednesday of each month from 6:00pm until 9:00pm.</p>
 
-  {% for event in events limit:1 %}
-    <p><b>The next meetup is on
-      {{ event.date | date: "%A" }}
-      {% assign d = event.date | date: "%-d"  %}
-      {% case d %}
-      {% when '1' or '21' or '31' %}{{ d }}st
-      {% when '2' or '22' %}{{ d }}nd
-      {% when '3' or '23' %}{{ d }}rd
-      {% else %}{{ d }}th
-      {% endcase %}
-      {{ event.date | date: "%B" }}
-      at
-      {{ event.venue_info }}
-    </b></p>
-  {% endfor %}
+    <p id="js-checkTheCalendar">
+        <strong>
+            Check <a href="https://calendar.birmingham.io">the calendar</a> for details of our next meetup.
+        </strong>
+    </p>
 
-  <p>This meetup is intentionally informal with no talks. We kick off at 6pm where you’ll get to hack on your website or project. From 7pm we’ll introduce ourselves and share what we’ve been working on. Each meetup has a theme, which we’ll discuss at 7:30pm. And then from 8:00pm, we’ll open up the discussion to whatever anyone wants to talk about.<p>
-  <p>There's free wifi and you'll have the opportunity to grab a drink and snack.</p>  
+    <p id="js-nextMeetupDetails" style="display:none">
+        <span class="js-hideIfNextMeetupNotPlanned">
+            <b>The next meetup is <span id="js-nextMeetupDateFromNow"></span>on
+                <span class="js-nextMeetupDate"></span>
+                at
+                <a href="https://www.google.com/maps/place/Cherry+Red's+Cafe+Bar/@52.476822,-1.901692,17z/data=!4m5!3m4!1s0x0:0x58d505a04a9abddd!8m2!3d52.4770684!4d-1.901202?hl=en">
+                    Cherry Red's Cafe Bar
+                </a> in The Map Room (88-92 John Bright St, Birmingham).
+            </b>
+        </span>
+    </p>
+
+  <p>It's intentionally informal with no talks. We kick off at 6pm where you’ll get to hack on your website or project. From 7pm we’ll introduce ourselves and share what we’ve been working on. Each meetup has a theme, which we’ll discuss at 7:30pm. And then from 8:00pm, we’ll open up the discussion to whatever anyone wants to talk about.<p>
+  <p>There's free WiFi and you'll have the opportunity to grab a drink and snack.</p>
   <p>We keep a little mailing list to let people know when the next meetup is. Feel free to add your email and we’ll pop you an email or two each month with information.</p>
 </div>
 
@@ -74,9 +71,96 @@ layout: default
 <div class="u-container u-section">
     <p>See you there,<br>
     - <a href="https://daveredfern.com/">Dave</a>, <a href="https://marcjenkins.co.uk/">Marc</a> &amp; <a href="https://paultibbetts.uk">Paul</a></p>
+
+    <noscript>P.S. we'd love to know why you have JavaScript disabled</noscript>
 </div>
 
 <div class="u-container u-section">
-    <p>Calendar feed: <a href="https://homebrewbrum.co.uk/calendar.ics">iCal</a><br>
-    You should also <a href="https://twitter.com/homebrewbrum">follow Homebrew Brum on twitter</a>.</p>
+    <p>
+        Subscribe to the <a href="https://homebrewbrum.co.uk/calendar.ics">iCal feed</a>
+        <br>
+        We're on <a href="https://calendar.birmingham.io">calendar.birmingham.io</a>
+        <br>
+        <a href="https://twitter.com/homebrewbrum">@HomebrewBrum</a> on Twitter
+    </p>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+
+<script type="text/javascript">
+
+    // <3 @sil
+
+    // find the URL of the ics file
+    var url     = location.protocol+'//'+location.host+'/calendar.ics';
+    var request = new XMLHttpRequest();
+
+    // request the contents
+    request.open('GET', url, true);
+    request.onload = function () {
+        var icsdata = request.responseText;
+        dealWithICS(icsdata);
+    }
+    request.send();
+
+    function dealWithICS(icsdata) {
+        // world's noddiest ics parser
+        var events = [], thisevent = {};
+
+        icsdata.split('\n').forEach(function(l) {
+            if (l == "BEGIN:VEVENT") {
+                    thisevent = {};
+                } else if (l == "END:VEVENT") {
+                events.push(thisevent);
+            } else {
+                var parts = l.split(':');
+                thisevent[parts[0]] = parts[1];
+            }
+        })
+
+        // sort events by date
+        events.sort(function(a,b) {
+            if (a.DTSTART < b.DTSTART) return -1;
+            if (a.DTSTART > b.DTSTART) return 1;
+            return 0;
+        });
+
+        // find the next event
+        var now = new Date().toISOString();
+        var now_dtstart = now.substr(0,4) + now.substr(5,2) + now.substr(8,2) +
+            "T" + now.substr(11,2) + now.substr(14,2);
+        var future_events = events.filter(function(e) { return e.DTSTART > now_dtstart; })
+
+        if (future_events.length == 0) {
+
+            next_meetup = "Hasn't been planned just yet…";
+            not_planned = "<strong>The next meetup hasn't been planned just yet…</strong>"
+
+            document.getElementById('js-nextMeetupDetails').innerHTML = not_planned;
+
+            targets = document.getElementsByClassName('js-hideIfNextMeetupNotPlanned');
+
+            for (var i = 0; i < targets.length; i++) {
+                var target       = targets[i];
+                target.style['display'] = 'none';
+            }
+
+        } else {
+
+            date        = future_events[0].DTSTART;
+            next_meetup = moment(date).format('dddd, MMMM Do');
+
+            document.getElementById('js-nextMeetupDateFromNow').innerHTML = moment(date).fromNow()+' ';
+        }
+
+        targets = document.getElementsByClassName('js-nextMeetupDate');
+
+        for (var i = 0; i < targets.length; i++) {
+            var target       = targets[i];
+            target.innerHTML = next_meetup;
+        }
+
+        document.getElementById('js-checkTheCalendar' ).style['display'] = 'none';
+        document.getElementById('js-nextMeetupDetails').style['display'] = 'block';
+    }
+</script>
